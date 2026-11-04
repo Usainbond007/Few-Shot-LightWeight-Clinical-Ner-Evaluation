@@ -21,3 +21,8 @@ results/**/metrics/errors_*.csv
 .DS_Store
 .vscode/
 .idea/
+
+# Research frontend build artifacts
+frontend/node_modules/
+frontend/dist/
+frontend/*.tsbuildinfo
