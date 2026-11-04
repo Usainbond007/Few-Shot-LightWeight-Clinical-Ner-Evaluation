@@ -1,0 +1,26 @@
+{
+  "support": {
+    "notes": 163,
+    "spans": {
+      "Problem": 39306,
+      "Treatment": 780,
+      "Test": 5394
+    }
+  },
+  "dev": {
+    "notes": 54,
+    "spans": {
+      "Problem": 12868,
+      "Treatment": 317,
+      "Test": 1617
+    }
+  },
+  "test": {
+    "notes": 55,
+    "spans": {
+      "Problem": 13343,
+      "Treatment": 216,
+      "Test": 1601
+    }
+  }
+}

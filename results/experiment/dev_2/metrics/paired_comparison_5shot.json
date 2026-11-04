@@ -1,0 +1,6 @@
+{
+  "mean_gaussian_minus_point_f1": 0.001333333333333353,
+  "std_episode_delta": 0.0262974438977547,
+  "gaussian_win_fraction": 0.5,
+  "note": "Paired episode differences; overlapping episodes are not independent."
+}

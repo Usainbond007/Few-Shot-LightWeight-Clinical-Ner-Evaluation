@@ -1,0 +1,86 @@
+[2026-10-19 20:11:53,930][__main__][INFO] - ============================================================
+[2026-10-19 20:11:53,930][__main__][INFO] - GLiNER Few-Shot Clinical NER Pipeline
+[2026-10-19 20:11:53,930][__main__][INFO] - ============================================================
+[2026-10-19 20:11:53,931][__main__][INFO] - Config:
+data:
+  entity_types:
+  - Problem
+  - Treatment
+  - Test
+  max_samples: 40
+  mimic_notes_dir: data/raw/mimic_notes
+  processed_dir: data/processed
+  query_examples_per_type: 50
+  seed: 42
+  shot_sizes:
+  - 5
+  - 10
+  - 20
+  snomed_concepts_file: data/raw/snomed_concepts.txt
+  synthetic_dir: data/synthetic
+evaluation:
+  calibration:
+    n_bins: 10
+    strategy: uniform
+  confidence_threshold: 0.5
+  error_analysis:
+    enabled: true
+    save_fp_fn: true
+  metrics:
+  - precision
+  - recall
+  - f1
+  n_episodes: 20
+model:
+  device: auto
+  embedding_dim: 768
+  freeze_encoder: true
+  gliner_id: urchade/gliner_medium-v2.1
+  span_max_len: 12
+output:
+  checkpoints_dir: results/checkpoints
+  log_level: INFO
+  metrics_dir: results/metrics
+  plots_dir: results/plots
+  results_dir: results
+  save_prototypes: true
+prototypes:
+  gaussian:
+    covariance_type: full
+    distance_metric: mahalanobis
+    enabled: true
+    regularisation: 0.0001
+  point:
+    distance_metric: cosine
+    enabled: true
+support:
+  balanced_sampling: true
+  n_episodes: 100
+
+[2026-10-19 20:11:57,071][__main__][INFO] - Loading real PhysioNet dataset from data/raw/train_notes.csv and data/raw/train_annotations.csv
+[2026-10-19 20:11:57,071][src.data.csv_loader][INFO] - [CSVDataLoader] Loading notes from data/raw/train_notes.csv
+[2026-10-19 20:11:57,092][src.data.csv_loader][INFO] - [CSVDataLoader] Loading annotations from data/raw/train_annotations.csv
+[2026-10-19 20:11:57,123][src.data.csv_loader][INFO] - [CSVDataLoader] Detected columns — notes: [note_id, text], annotations: [note_id, start, end, span, entity_type]
+[2026-10-19 20:11:57,899][src.data.csv_loader][INFO] - [CSVDataLoader] Loaded 40 notes, 11450 total spans.
+[2026-10-19 20:11:57,902][__main__][INFO] - Loaded 40 clinical samples.
+[2026-10-19 20:11:57,928][__main__][INFO] - SpanDataset: SpanDataset(total=11450, counts={'Problem': 10001, 'Treatment': 159, 'Test': 1290})
+[2026-10-19 20:11:57,928][__main__][INFO] - Loading GLiNER encoder: urchade/gliner_medium-v2.1
+[2026-10-19 20:11:59,798][src.models.gliner_encoder][INFO] - [GLiNEREncoder] Loading 'urchade/gliner_medium-v2.1' on mps
+[2026-10-19 20:12:00,179][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/urchade/gliner_medium-v2.1/revision/main "HTTP/1.1 200 OK"
+[2026-10-19 20:12:00,187][gliner.model][INFO] - Loading the following GLiNER type: <class 'gliner.model.UniEncoderSpanGLiNER'>...
+[2026-10-19 20:12:00,433][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-10-19 20:12:00,434][huggingface_hub.utils._http][WARNING] - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[2026-10-19 20:12:00,468][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/deberta-v3-base/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/config.json?%2Fmicrosoft%2Fdeberta-v3-base%2Fresolve%2Fmain%2Fconfig.json=&etag=%22904b7ba900060d5ff61289fb29bee393189716c7%22 "HTTP/1.1 200 OK"
+[2026-10-19 20:12:00,705][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-10-19 20:12:00,741][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/deberta-v3-base/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/tokenizer_config.json?%2Fmicrosoft%2Fdeberta-v3-base%2Fresolve%2Fmain%2Ftokenizer_config.json=&etag=%22acfd94e399c5659e4bed75f91b4ee24b111fc7a6%22 "HTTP/1.1 200 OK"
+[2026-10-19 20:12:00,997][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/microsoft/deberta-v3-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-10-19 20:12:01,237][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/microsoft/deberta-v3-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-10-19 20:12:01,614][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/microsoft/deberta-v3-base "HTTP/1.1 200 OK"
+[2026-10-19 20:12:01,878][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-10-19 20:12:01,914][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/deberta-v3-base/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/config.json?%2Fmicrosoft%2Fdeberta-v3-base%2Fresolve%2Fmain%2Fconfig.json=&etag=%22904b7ba900060d5ff61289fb29bee393189716c7%22 "HTTP/1.1 200 OK"
+[2026-10-19 20:12:06,319][src.models.gliner_encoder][INFO] - [GLiNEREncoder] Embedding dim=512, max_span_len=12, frozen=True
+[2026-10-19 20:12:06,319][__main__][INFO] - Encoder ready: GLiNEREncoder(dim=512, device=mps, frozen=True)
+[2026-10-19 20:12:06,320][__main__][INFO] - 
+──────────────────────────────────────────────────
+[2026-10-19 20:12:06,320][__main__][INFO] - Running 5-shot evaluation (100 episodes)
+[2026-10-19 20:12:06,320][__main__][INFO] - ──────────────────────────────────────────────────

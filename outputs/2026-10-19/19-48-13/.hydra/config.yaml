@@ -1,0 +1,52 @@
+model:
+  gliner_id: urchade/gliner_medium-v2.1
+  freeze_encoder: true
+  embedding_dim: 768
+  span_max_len: 12
+  device: auto
+data:
+  mimic_notes_dir: data/raw/mimic_notes
+  snomed_concepts_file: data/raw/snomed_concepts.txt
+  processed_dir: data/processed
+  synthetic_dir: data/synthetic
+  entity_types:
+  - Problem
+  - Treatment
+  - Test
+  shot_sizes:
+  - 5
+  - 10
+  - 20
+  query_examples_per_type: 50
+  seed: 42
+prototypes:
+  point:
+    enabled: true
+    distance_metric: cosine
+  gaussian:
+    enabled: true
+    regularisation: 0.0001
+    distance_metric: mahalanobis
+    covariance_type: full
+support:
+  n_episodes: 100
+  balanced_sampling: true
+evaluation:
+  metrics:
+  - precision
+  - recall
+  - f1
+  calibration:
+    n_bins: 10
+    strategy: uniform
+  error_analysis:
+    enabled: true
+    save_fp_fn: true
+  confidence_threshold: 0.5
+output:
+  results_dir: results
+  plots_dir: results/plots
+  metrics_dir: results/metrics
+  checkpoints_dir: results/checkpoints
+  save_prototypes: true
+  log_level: INFO

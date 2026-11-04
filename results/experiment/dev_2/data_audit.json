@@ -1,0 +1,257 @@
+{
+  "notes": 272,
+  "input_annotations": 75490,
+  "counts": {
+    "Problem": 65517,
+    "Treatment": 1313,
+    "Test": 8612,
+    "text_mismatch": 20,
+    "duplicate": 28
+  },
+  "rejected": [
+    {
+      "csv_row": 74428,
+      "note_id": "19250448-DS-22",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 74478,
+      "note_id": "15295867-DS-21",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 74532,
+      "note_id": "11167566-DS-4",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 74536,
+      "note_id": "10860165-DS-24",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 74541,
+      "note_id": "12991484-DS-15",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 74543,
+      "note_id": "11167566-DS-4",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 74547,
+      "note_id": "12319089-DS-12",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74548,
+      "note_id": "16867779-DS-14",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74549,
+      "note_id": "11810606-DS-7",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74550,
+      "note_id": "17259909-DS-2",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74551,
+      "note_id": "12319089-DS-12",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74552,
+      "note_id": "16867779-DS-14",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74553,
+      "note_id": "11810606-DS-7",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74554,
+      "note_id": "10575317-DS-6",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74555,
+      "note_id": "10839721-DS-9",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74556,
+      "note_id": "12050253-DS-20",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74557,
+      "note_id": "12626414-DS-32",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74558,
+      "note_id": "14631997-DS-13",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74559,
+      "note_id": "10352433-DS-20",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74560,
+      "note_id": "11198666-DS-27",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74561,
+      "note_id": "11250426-DS-3",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74562,
+      "note_id": "15295867-DS-21",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74563,
+      "note_id": "15295867-DS-21",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74564,
+      "note_id": "17563305-DS-5",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74565,
+      "note_id": "17656866-DS-6",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74566,
+      "note_id": "18066001-DS-2",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74567,
+      "note_id": "12985376-DS-217",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74568,
+      "note_id": "19301098-DS-6",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74569,
+      "note_id": "12730675-DS-12",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74570,
+      "note_id": "12730675-DS-12",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74571,
+      "note_id": "17322218-DS-14",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74572,
+      "note_id": "12985376-DS-217",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74573,
+      "note_id": "10124346-DS-4",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 74574,
+      "note_id": "15123572-DS-7",
+      "reason": "duplicate"
+    },
+    {
+      "csv_row": 75027,
+      "note_id": "17322218-DS-14",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 75363,
+      "note_id": "15123572-DS-7",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 75364,
+      "note_id": "12991484-DS-15",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 75365,
+      "note_id": "12276520-DS-22",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 75366,
+      "note_id": "15375104-DS-15",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 75377,
+      "note_id": "11799619-DS-27",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 75416,
+      "note_id": "18570237-DS-10",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 75417,
+      "note_id": "19132807-DS-19",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 75425,
+      "note_id": "10302979-DS-5",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 75426,
+      "note_id": "13220371-DS-18",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 75429,
+      "note_id": "12190214-DS-14",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 75433,
+      "note_id": "12340122-DS-5",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 75437,
+      "note_id": "13272597-DS-24",
+      "reason": "text_mismatch"
+    },
+    {
+      "csv_row": 75471,
+      "note_id": "14055839-DS-15",
+      "reason": "text_mismatch"
+    }
+  ],
+  "sha256": {
+    "train_notes.csv": "c7d604a09cc34dbad1e585a8a5896d33cdb32a9207de335b590d5786e9a3cd03",
+    "train_annotations.csv": "2928f748459ccbade7951c7abc359407b3a266e965c25c9873e3d4ac5755d954"
+  }
+}

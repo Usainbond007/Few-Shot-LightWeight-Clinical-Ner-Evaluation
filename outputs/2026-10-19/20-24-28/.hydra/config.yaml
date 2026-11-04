@@ -1,0 +1,54 @@
+data:
+  entity_types:
+  - Problem
+  - Treatment
+  - Test
+  max_samples: 10
+  mimic_notes_dir: data/raw/mimic_notes
+  processed_dir: data/processed
+  query_examples_per_type: 50
+  seed: 42
+  shot_sizes:
+  - 5
+  - 10
+  - 20
+  snomed_concepts_file: data/raw/snomed_concepts.txt
+  synthetic_dir: data/synthetic
+evaluation:
+  calibration:
+    n_bins: 10
+    strategy: uniform
+  confidence_threshold: 0.5
+  error_analysis:
+    enabled: true
+    save_fp_fn: true
+  metrics:
+  - precision
+  - recall
+  - f1
+  n_episodes: 5
+model:
+  device: auto
+  embedding_dim: 768
+  freeze_encoder: true
+  gliner_id: urchade/gliner_medium-v2.1
+  span_max_len: 12
+output:
+  checkpoints_dir: results/checkpoints
+  log_level: INFO
+  metrics_dir: results/metrics
+  plots_dir: results/plots
+  results_dir: results
+  save_prototypes: true
+prototypes:
+  gaussian:
+    covariance_type: full
+    distance_metric: mahalanobis
+    enabled: true
+    regularisation: 0.0001
+  point:
+    distance_metric: cosine
+    enabled: true
+support:
+  balanced_sampling: true
+  n_episodes: 100

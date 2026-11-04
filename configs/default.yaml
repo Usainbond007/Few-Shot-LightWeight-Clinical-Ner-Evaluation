@@ -1,0 +1,35 @@
+data:
+  raw_dir: data/raw
+  seed: 42
+  entity_types: [Problem, Treatment, Test]
+  shot_sizes: [1, 5, 10, 20]
+  query_examples_per_type: 50
+model:
+  gliner_id: urchade/gliner_medium-v2.1
+  revision: null
+  device: auto
+  batch_size: 8
+  context_tokens: 64
+  span_max_len: 12
+  cache_dir: data/processed/embeddings
+prototypes:
+  point:
+    distance_metric: cosine
+  gaussian:
+    distance_metric: mahalanobis
+    covariance_type: diagonal
+    regularisation: 0.001
+    shrinkage: 0.8
+support:
+  n_episodes: 30
+evaluation:
+  split: dev
+  calibration:
+    n_bins: 10
+    strategy: uniform
+  error_analysis:
+    save_fp_fn: true
+output:
+  results_dir: results/dev_default
+  metrics_dir: ${output.results_dir}/metrics
+  plots_dir: ${output.results_dir}/plots

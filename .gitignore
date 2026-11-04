@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Generated caches / model weights
+data/processed/
+*.pt
+*.bin
+*.safetensors
+
+# Local clinical text: verify permissions before intentionally adding these
+data/raw/*.csv
+
+# FP/FN exports may contain note snippets; review and explicitly allow only if safe
+results/**/metrics/errors_*.csv
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

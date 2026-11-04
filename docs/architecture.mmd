@@ -1,0 +1,14 @@
+flowchart TD
+    A["PhysioNet SNOMED CT Entity Linking Challenge v1.2.1<br/>MIMIC-IV-Note discharge notes + span annotations"] --> B["Prepare model-ready annotations<br/>derive span text from offsets<br/>map SNOMED concepts to project labels"]
+    B --> C["Validate data<br/>offset bounds + exact span-text match<br/>remove duplicates / invalid rows"]
+    C --> D["Group identical note texts<br/>split by note: 60% support / 20% dev / 20% test"]
+    D --> E["Few-shot episode sampler<br/>1 / 5 / 10 / 20 labelled spans per class<br/>same episodes for both heads"]
+    E --> F["Frozen GLiNER Medium v2.1 span encoder"]
+    F --> G["Mention-centred context window<br/>select tokens at gold start/end offsets<br/>mean-pool mention tokens + L2 normalise"]
+    G --> H["Shared span embeddings"]
+    H --> I["Point prototype head<br/>class mean + cosine distance"]
+    H --> J["Covariance-aware head<br/>diagonal covariance + shrinkage<br/>Mahalanobis scoring"]
+    I --> K["Predicted entity type for each gold span"]
+    J --> K
+    K --> L["Compare with gold entity labels"]
+    L --> M["Micro / macro precision, recall, F1<br/>ECE, confusion matrices, paired episodes<br/>plots and error analysis"]

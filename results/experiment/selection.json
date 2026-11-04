@@ -1,0 +1,37 @@
+{
+  "objective": "Mean Gaussian dev micro F1 at 5,10,20 shots",
+  "trials": [
+    {
+      "config": {
+        "context": 32,
+        "shrinkage": 0.8,
+        "model": "urchade/gliner_medium-v2.1"
+      },
+      "dev_gaussian_mean_f1": 0.6953333333333332
+    },
+    {
+      "config": {
+        "context": 64,
+        "shrinkage": 0.8,
+        "model": "urchade/gliner_medium-v2.1"
+      },
+      "dev_gaussian_mean_f1": 0.7013333333333334
+    },
+    {
+      "config": {
+        "context": 64,
+        "shrinkage": 0.5,
+        "model": "urchade/gliner_medium-v2.1"
+      },
+      "dev_gaussian_mean_f1": 0.6968888888888888
+    }
+  ],
+  "selected": {
+    "config": {
+      "context": 64,
+      "shrinkage": 0.8,
+      "model": "urchade/gliner_medium-v2.1"
+    },
+    "dev_gaussian_mean_f1": 0.7013333333333334
+  }
+}

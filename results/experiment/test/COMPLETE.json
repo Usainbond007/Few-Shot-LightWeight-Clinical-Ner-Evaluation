@@ -1,0 +1,15 @@
+{
+  "task": "gold_span_classification",
+  "split": "test",
+  "encoder_fingerprint": "f55352e6752f3ce969b089be2b48249485f1dd59a6c99bbbf585a83bf7b3c37f",
+  "versions": {
+    "gliner": "0.2.24",
+    "torch": "2.11.0+cu130",
+    "transformers": "4.57.6",
+    "numpy": "2.4.6"
+  },
+  "data_sha256": {
+    "train_notes.csv": "c7d604a09cc34dbad1e585a8a5896d33cdb32a9207de335b590d5786e9a3cd03",
+    "train_annotations.csv": "2928f748459ccbade7951c7abc359407b3a266e965c25c9873e3d4ac5755d954"
+  }
+}

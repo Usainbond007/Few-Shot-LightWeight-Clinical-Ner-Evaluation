@@ -1,0 +1,155 @@
+[2026-10-19 18:59:26,319][__main__][INFO] - ============================================================
+[2026-10-19 18:59:26,319][__main__][INFO] - GLiNER Few-Shot Clinical NER Pipeline
+[2026-10-19 18:59:26,319][__main__][INFO] - ============================================================
+[2026-10-19 18:59:26,320][__main__][INFO] - Config:
+model:
+  gliner_id: urchade/gliner_medium-v2.1
+  freeze_encoder: true
+  embedding_dim: 768
+  span_max_len: 12
+  device: auto
+data:
+  mimic_notes_dir: data/raw/mimic_notes
+  snomed_concepts_file: data/raw/snomed_concepts.txt
+  processed_dir: data/processed
+  synthetic_dir: data/synthetic
+  entity_types:
+  - Problem
+  - Treatment
+  - Test
+  - Drug
+  - Dosage
+  - Duration
+  - Frequency
+  shot_sizes:
+  - 5
+  - 10
+  - 20
+  query_examples_per_type: 50
+  seed: 42
+prototypes:
+  point:
+    enabled: true
+    distance_metric: cosine
+  gaussian:
+    enabled: true
+    regularisation: 0.0001
+    distance_metric: mahalanobis
+    covariance_type: full
+support:
+  n_episodes: 100
+  balanced_sampling: true
+evaluation:
+  metrics:
+  - precision
+  - recall
+  - f1
+  calibration:
+    n_bins: 10
+    strategy: uniform
+  error_analysis:
+    enabled: true
+    save_fp_fn: true
+  confidence_threshold: 0.5
+output:
+  results_dir: results
+  plots_dir: results/plots
+  metrics_dir: results/metrics
+  checkpoints_dir: results/checkpoints
+  save_prototypes: true
+  log_level: INFO
+
+[2026-10-19 18:59:27,065][__main__][INFO] - Using synthetic data (MIMIC-IV-Note not available).
+[2026-10-19 18:59:27,065][__main__][INFO] - Loading cached synthetic data from data/synthetic/clinical_samples.jsonl
+[2026-10-19 18:59:27,070][__main__][INFO] - Loaded 3000 clinical samples.
+[2026-10-19 18:59:27,081][__main__][INFO] - SpanDataset: SpanDataset(total=3000, counts={'Duration': 460, 'Treatment': 412, 'Problem': 400, 'Dosage': 433, 'Test': 427, 'Frequency': 439, 'Drug': 429})
+[2026-10-19 18:59:27,082][__main__][INFO] - Loading GLiNER encoder: urchade/gliner_medium-v2.1
+[2026-10-19 18:59:28,901][src.models.gliner_encoder][INFO] - [GLiNEREncoder] Loading 'urchade/gliner_medium-v2.1' on mps
+[2026-10-19 18:59:29,380][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/urchade/gliner_medium-v2.1/revision/main "HTTP/1.1 200 OK"
+[2026-10-19 18:59:29,389][gliner.model][INFO] - Loading the following GLiNER type: <class 'gliner.model.UniEncoderSpanGLiNER'>...
+[2026-10-19 18:59:29,622][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-10-19 18:59:29,624][huggingface_hub.utils._http][WARNING] - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[2026-10-19 18:59:29,660][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/deberta-v3-base/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/config.json?%2Fmicrosoft%2Fdeberta-v3-base%2Fresolve%2Fmain%2Fconfig.json=&etag=%22904b7ba900060d5ff61289fb29bee393189716c7%22 "HTTP/1.1 200 OK"
+[2026-10-19 18:59:29,960][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-10-19 18:59:29,995][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/deberta-v3-base/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/tokenizer_config.json?%2Fmicrosoft%2Fdeberta-v3-base%2Fresolve%2Fmain%2Ftokenizer_config.json=&etag=%22acfd94e399c5659e4bed75f91b4ee24b111fc7a6%22 "HTTP/1.1 200 OK"
+[2026-10-19 18:59:30,232][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/microsoft/deberta-v3-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-10-19 18:59:30,469][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/microsoft/deberta-v3-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-10-19 18:59:30,846][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/microsoft/deberta-v3-base "HTTP/1.1 200 OK"
+[2026-10-19 18:59:31,083][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-10-19 18:59:31,118][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/deberta-v3-base/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/config.json?%2Fmicrosoft%2Fdeberta-v3-base%2Fresolve%2Fmain%2Fconfig.json=&etag=%22904b7ba900060d5ff61289fb29bee393189716c7%22 "HTTP/1.1 200 OK"
+[2026-10-19 18:59:35,727][src.models.gliner_encoder][INFO] - [GLiNEREncoder] Embedding dim=512, max_span_len=12, frozen=True
+[2026-10-19 18:59:35,727][__main__][INFO] - Encoder ready: GLiNEREncoder(dim=512, device=mps, frozen=True)
+[2026-10-19 18:59:35,728][__main__][INFO] - 
+──────────────────────────────────────────────────
+[2026-10-19 18:59:35,728][__main__][INFO] - Running 5-shot evaluation (100 episodes)
+[2026-10-19 18:59:35,728][__main__][INFO] - ──────────────────────────────────────────────────
+[2026-10-19 18:59:55,746][__main__][INFO] -   Episode 10/100
+[2026-10-19 19:00:17,467][__main__][INFO] -   Episode 20/100
+[2026-10-19 19:00:39,230][__main__][INFO] -   Episode 30/100
+[2026-10-19 19:01:00,784][__main__][INFO] -   Episode 40/100
+[2026-10-19 19:01:22,393][__main__][INFO] -   Episode 50/100
+[2026-10-19 19:01:44,050][__main__][INFO] -   Episode 60/100
+[2026-10-19 19:02:05,558][__main__][INFO] -   Episode 70/100
+[2026-10-19 19:02:27,389][__main__][INFO] -   Episode 80/100
+[2026-10-19 19:02:49,661][__main__][INFO] -   Episode 90/100
+[2026-10-19 19:03:11,422][__main__][INFO] -   Episode 100/100
+[2026-10-19 19:03:13,518][__main__][INFO] -   PointPrototype  F1: 0.7439 ± 0.0504
+[2026-10-19 19:03:13,518][__main__][INFO] -   GaussPrototype  F1: 0.8159 ± 0.0357
+[2026-10-19 19:03:13,521][__main__][INFO] -   Point calibration: CalibrationResult(ECE=0.5828, MCE=0.7957, UNDERCONFIDENT)
+[2026-10-19 19:03:13,521][__main__][INFO] -   Gauss calibration: CalibrationResult(ECE=0.1840, MCE=0.6152, OVERCONFIDENT)
+[2026-10-19 19:03:15,071][src.evaluation.calibration][INFO] - [CalibrationAnalyzer] Plot saved → results/plots/calibration_point_5shot.png
+[2026-10-19 19:03:15,170][src.evaluation.calibration][INFO] - [CalibrationAnalyzer] Plot saved → results/plots/calibration_gauss_5shot.png
+[2026-10-19 19:03:15,301][src.evaluation.error_analysis][INFO] - [ErrorAnalyzer] Confusion matrix saved → results/plots/confusion_point_5shot.png
+[2026-10-19 19:03:15,415][src.evaluation.error_analysis][INFO] - [ErrorAnalyzer] Confusion matrix saved → results/plots/confusion_gauss_5shot.png
+[2026-10-19 19:03:15,613][src.evaluation.error_analysis][INFO] - [ErrorAnalyzer] 8964 errors saved → results/metrics/errors_point_5shot.csv
+[2026-10-19 19:03:15,627][src.evaluation.error_analysis][INFO] - [ErrorAnalyzer] 6442 errors saved → results/metrics/errors_gauss_5shot.csv
+[2026-10-19 19:03:15,629][__main__][INFO] - 
+──────────────────────────────────────────────────
+[2026-10-19 19:03:15,629][__main__][INFO] - Running 10-shot evaluation (100 episodes)
+[2026-10-19 19:03:15,629][__main__][INFO] - ──────────────────────────────────────────────────
+[2026-10-19 19:03:36,809][__main__][INFO] -   Episode 10/100
+[2026-10-19 19:04:01,076][__main__][INFO] -   Episode 20/100
+[2026-10-19 19:04:26,702][__main__][INFO] -   Episode 30/100
+[2026-10-19 19:04:52,455][__main__][INFO] -   Episode 40/100
+[2026-10-19 19:05:17,908][__main__][INFO] -   Episode 50/100
+[2026-10-19 19:05:42,867][__main__][INFO] -   Episode 60/100
+[2026-10-19 19:06:08,231][__main__][INFO] -   Episode 70/100
+[2026-10-19 19:06:32,986][__main__][INFO] -   Episode 80/100
+[2026-10-19 19:06:58,070][__main__][INFO] -   Episode 90/100
+[2026-10-19 19:07:22,631][__main__][INFO] -   Episode 100/100
+[2026-10-19 19:07:25,026][__main__][INFO] -   PointPrototype  F1: 0.7737 ± 0.0383
+[2026-10-19 19:07:25,027][__main__][INFO] -   GaussPrototype  F1: 0.9018 ± 0.0264
+[2026-10-19 19:07:25,030][__main__][INFO] -   Point calibration: CalibrationResult(ECE=0.6128, MCE=0.7977, UNDERCONFIDENT)
+[2026-10-19 19:07:25,030][__main__][INFO] -   Gauss calibration: CalibrationResult(ECE=0.0982, MCE=0.0982, OVERCONFIDENT)
+[2026-10-19 19:07:25,134][src.evaluation.calibration][INFO] - [CalibrationAnalyzer] Plot saved → results/plots/calibration_point_10shot.png
+[2026-10-19 19:07:25,231][src.evaluation.calibration][INFO] - [CalibrationAnalyzer] Plot saved → results/plots/calibration_gauss_10shot.png
+[2026-10-19 19:07:25,344][src.evaluation.error_analysis][INFO] - [ErrorAnalyzer] Confusion matrix saved → results/plots/confusion_point_10shot.png
+[2026-10-19 19:07:25,454][src.evaluation.error_analysis][INFO] - [ErrorAnalyzer] Confusion matrix saved → results/plots/confusion_gauss_10shot.png
+[2026-10-19 19:07:25,632][src.evaluation.error_analysis][INFO] - [ErrorAnalyzer] 7921 errors saved → results/metrics/errors_point_10shot.csv
+[2026-10-19 19:07:25,638][src.evaluation.error_analysis][INFO] - [ErrorAnalyzer] 3436 errors saved → results/metrics/errors_gauss_10shot.csv
+[2026-10-19 19:07:25,640][__main__][INFO] - 
+──────────────────────────────────────────────────
+[2026-10-19 19:07:25,640][__main__][INFO] - Running 20-shot evaluation (100 episodes)
+[2026-10-19 19:07:25,640][__main__][INFO] - ──────────────────────────────────────────────────
+[2026-10-19 19:07:50,468][__main__][INFO] -   Episode 10/100
+[2026-10-19 19:08:18,046][__main__][INFO] -   Episode 20/100
+[2026-10-19 19:08:45,449][__main__][INFO] -   Episode 30/100
+[2026-10-19 19:09:12,504][__main__][INFO] -   Episode 40/100
+[2026-10-19 19:09:39,551][__main__][INFO] -   Episode 50/100
+[2026-10-19 19:10:06,766][__main__][INFO] -   Episode 60/100
+[2026-10-19 19:10:34,168][__main__][INFO] -   Episode 70/100
+[2026-10-19 19:11:01,631][__main__][INFO] -   Episode 80/100
+[2026-10-19 19:11:29,175][__main__][INFO] -   Episode 90/100
+[2026-10-19 19:11:56,812][__main__][INFO] -   Episode 100/100
+[2026-10-19 19:11:59,532][__main__][INFO] -   PointPrototype  F1: 0.7990 ± 0.0366
+[2026-10-19 19:11:59,532][__main__][INFO] -   GaussPrototype  F1: 0.9648 ± 0.0145
+[2026-10-19 19:11:59,535][__main__][INFO] -   Point calibration: CalibrationResult(ECE=0.6383, MCE=0.7974, UNDERCONFIDENT)
+[2026-10-19 19:11:59,535][__main__][INFO] -   Gauss calibration: CalibrationResult(ECE=0.0352, MCE=0.0352, OVERCONFIDENT)
+[2026-10-19 19:11:59,632][src.evaluation.calibration][INFO] - [CalibrationAnalyzer] Plot saved → results/plots/calibration_point_20shot.png
+[2026-10-19 19:11:59,724][src.evaluation.calibration][INFO] - [CalibrationAnalyzer] Plot saved → results/plots/calibration_gauss_20shot.png
+[2026-10-19 19:11:59,835][src.evaluation.error_analysis][INFO] - [ErrorAnalyzer] Confusion matrix saved → results/plots/confusion_point_20shot.png
+[2026-10-19 19:11:59,943][src.evaluation.error_analysis][INFO] - [ErrorAnalyzer] Confusion matrix saved → results/plots/confusion_gauss_20shot.png
+[2026-10-19 19:12:00,266][src.evaluation.error_analysis][INFO] - [ErrorAnalyzer] 7036 errors saved → results/metrics/errors_point_20shot.csv
+[2026-10-19 19:12:00,269][src.evaluation.error_analysis][INFO] - [ErrorAnalyzer] 1233 errors saved → results/metrics/errors_gauss_20shot.csv
+[2026-10-19 19:12:00,271][__main__][INFO] - 
+✓ Results saved → results/metrics/all_results.json

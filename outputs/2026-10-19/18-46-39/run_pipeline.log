@@ -1,0 +1,109 @@
+[2026-10-19 18:46:39,866][__main__][INFO] - ============================================================
+[2026-10-19 18:46:39,866][__main__][INFO] - GLiNER Few-Shot Clinical NER Pipeline
+[2026-10-19 18:46:39,866][__main__][INFO] - ============================================================
+[2026-10-19 18:46:39,867][__main__][INFO] - Config:
+model:
+  gliner_id: urchade/gliner_medium-v2.1
+  freeze_encoder: true
+  embedding_dim: 768
+  span_max_len: 12
+  device: auto
+data:
+  mimic_notes_dir: data/raw/mimic_notes
+  snomed_concepts_file: data/raw/snomed_concepts.txt
+  processed_dir: data/processed
+  synthetic_dir: data/synthetic
+  entity_types:
+  - Problem
+  - Treatment
+  - Test
+  - Drug
+  - Dosage
+  - Duration
+  - Frequency
+  shot_sizes:
+  - 5
+  - 10
+  - 20
+  query_examples_per_type: 50
+  seed: 42
+prototypes:
+  point:
+    enabled: true
+    distance_metric: cosine
+  gaussian:
+    enabled: true
+    regularisation: 0.0001
+    distance_metric: mahalanobis
+    covariance_type: full
+support:
+  n_episodes: 100
+  balanced_sampling: true
+evaluation:
+  metrics:
+  - precision
+  - recall
+  - f1
+  calibration:
+    n_bins: 10
+    strategy: uniform
+  error_analysis:
+    enabled: true
+    save_fp_fn: true
+  confidence_threshold: 0.5
+output:
+  results_dir: results
+  plots_dir: results/plots
+  metrics_dir: results/metrics
+  checkpoints_dir: results/checkpoints
+  save_prototypes: true
+  log_level: INFO
+
+[2026-10-19 18:46:44,970][__main__][INFO] - Using synthetic data (MIMIC-IV-Note not available).
+[2026-10-19 18:46:44,970][__main__][INFO] - Generating synthetic clinical samples...
+[2026-10-19 18:46:45,002][__main__][INFO] - Loaded 3000 clinical samples.
+[2026-10-19 18:46:45,014][__main__][INFO] - SpanDataset: SpanDataset(total=3000, counts={'Duration': 460, 'Treatment': 412, 'Problem': 400, 'Dosage': 433, 'Test': 427, 'Frequency': 439, 'Drug': 429})
+[2026-10-19 18:46:45,014][__main__][INFO] - Loading GLiNER encoder: urchade/gliner_medium-v2.1
+[2026-10-19 18:46:48,416][src.models.gliner_encoder][INFO] - [GLiNEREncoder] Loading 'urchade/gliner_medium-v2.1' on mps
+[2026-10-19 18:46:49,079][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+[2026-10-19 18:46:49,316][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/urchade/gliner_medium-v2.1/revision/main "HTTP/1.1 200 OK"
+[2026-10-19 18:46:49,596][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/urchade/gliner_medium-v2.1/tree/40ec419335d09393f298636f471328b722c6da9e?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-10-19 18:46:49,835][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/urchade/gliner_medium-v2.1/resolve/40ec419335d09393f298636f471328b722c6da9e/gliner_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-10-19 18:46:49,837][huggingface_hub.utils._http][WARNING] - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[2026-10-19 18:46:49,872][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/urchade/gliner_medium-v2.1/40ec419335d09393f298636f471328b722c6da9e/gliner_config.json?%2Furchade%2Fgliner_medium-v2.1%2Fresolve%2F40ec419335d09393f298636f471328b722c6da9e%2Fgliner_config.json=&etag=%22e79565cc6e4eaaafe0dc4ab020d5eb37c324b8e8%22 "HTTP/1.1 200 OK"
+[2026-10-19 18:46:49,914][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/urchade/gliner_medium-v2.1/40ec419335d09393f298636f471328b722c6da9e/gliner_config.json?%2Furchade%2Fgliner_medium-v2.1%2Fresolve%2F40ec419335d09393f298636f471328b722c6da9e%2Fgliner_config.json=&etag=%22e79565cc6e4eaaafe0dc4ab020d5eb37c324b8e8%22 "HTTP/1.1 200 OK"
+[2026-10-19 18:46:49,922][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/urchade/gliner_medium-v2.1/resolve/40ec419335d09393f298636f471328b722c6da9e/pytorch_model.bin "HTTP/1.1 302 Found"
+[2026-10-19 18:46:50,163][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/urchade/gliner_medium-v2.1/resolve/40ec419335d09393f298636f471328b722c6da9e/README.md "HTTP/1.1 307 Temporary Redirect"
+[2026-10-19 18:46:50,163][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/urchade/gliner_medium-v2.1/resolve/40ec419335d09393f298636f471328b722c6da9e/.gitattributes "HTTP/1.1 307 Temporary Redirect"
+[2026-10-19 18:46:50,163][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/urchade/gliner_medium-v2.1/resolve/40ec419335d09393f298636f471328b722c6da9e/model.safetensors "HTTP/1.1 302 Found"
+[2026-10-19 18:46:50,203][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/urchade/gliner_medium-v2.1/40ec419335d09393f298636f471328b722c6da9e/README.md?%2Furchade%2Fgliner_medium-v2.1%2Fresolve%2F40ec419335d09393f298636f471328b722c6da9e%2FREADME.md=&etag=%22eb56e50f47ebc5f0f7c87ffd43479e73d324b5c9%22 "HTTP/1.1 200 OK"
+[2026-10-19 18:46:50,203][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/urchade/gliner_medium-v2.1/40ec419335d09393f298636f471328b722c6da9e/.gitattributes?%2Furchade%2Fgliner_medium-v2.1%2Fresolve%2F40ec419335d09393f298636f471328b722c6da9e%2F.gitattributes=&etag=%22a6344aac8c09253b3b630fb776ae94478aa0275b%22 "HTTP/1.1 200 OK"
+[2026-10-19 18:46:50,241][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/urchade/gliner_medium-v2.1/40ec419335d09393f298636f471328b722c6da9e/.gitattributes?%2Furchade%2Fgliner_medium-v2.1%2Fresolve%2F40ec419335d09393f298636f471328b722c6da9e%2F.gitattributes=&etag=%22a6344aac8c09253b3b630fb776ae94478aa0275b%22 "HTTP/1.1 200 OK"
+[2026-10-19 18:46:50,243][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/urchade/gliner_medium-v2.1/40ec419335d09393f298636f471328b722c6da9e/README.md?%2Furchade%2Fgliner_medium-v2.1%2Fresolve%2F40ec419335d09393f298636f471328b722c6da9e%2FREADME.md=&etag=%22eb56e50f47ebc5f0f7c87ffd43479e73d324b5c9%22 "HTTP/1.1 200 OK"
+[2026-10-19 18:46:50,403][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/urchade/gliner_medium-v2.1/xet-read-token/40ec419335d09393f298636f471328b722c6da9e "HTTP/1.1 200 OK"
+[2026-10-19 18:53:47,708][gliner.model][INFO] - Loading the following GLiNER type: <class 'gliner.model.UniEncoderSpanGLiNER'>...
+[2026-10-19 18:53:48,146][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-10-19 18:53:48,181][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/deberta-v3-base/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/config.json?%2Fmicrosoft%2Fdeberta-v3-base%2Fresolve%2Fmain%2Fconfig.json=&etag=%22904b7ba900060d5ff61289fb29bee393189716c7%22 "HTTP/1.1 200 OK"
+[2026-10-19 18:53:48,220][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/microsoft/deberta-v3-base/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/config.json?%2Fmicrosoft%2Fdeberta-v3-base%2Fresolve%2Fmain%2Fconfig.json=&etag=%22904b7ba900060d5ff61289fb29bee393189716c7%22 "HTTP/1.1 200 OK"
+[2026-10-19 18:53:48,457][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-10-19 18:53:48,491][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/deberta-v3-base/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/tokenizer_config.json?%2Fmicrosoft%2Fdeberta-v3-base%2Fresolve%2Fmain%2Ftokenizer_config.json=&etag=%22acfd94e399c5659e4bed75f91b4ee24b111fc7a6%22 "HTTP/1.1 200 OK"
+[2026-10-19 18:53:48,528][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/microsoft/deberta-v3-base/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/tokenizer_config.json?%2Fmicrosoft%2Fdeberta-v3-base%2Fresolve%2Fmain%2Ftokenizer_config.json=&etag=%22acfd94e399c5659e4bed75f91b4ee24b111fc7a6%22 "HTTP/1.1 200 OK"
+[2026-10-19 18:53:48,765][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/microsoft/deberta-v3-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-10-19 18:53:49,003][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/microsoft/deberta-v3-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-10-19 18:53:49,242][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/spm.model "HTTP/1.1 302 Found"
+[2026-10-19 18:53:49,470][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/microsoft/deberta-v3-base/xet-read-token/8ccc9b6f36199bec6961081d44eb72fb3f7353f3 "HTTP/1.1 200 OK"
+[2026-10-19 18:53:52,143][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/tokenizer.json "HTTP/1.1 404 Not Found"
+[2026-10-19 18:53:52,377][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/added_tokens.json "HTTP/1.1 404 Not Found"
+[2026-10-19 18:53:52,607][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/special_tokens_map.json "HTTP/1.1 404 Not Found"
+[2026-10-19 18:53:52,842][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+[2026-10-19 18:53:53,713][httpx][INFO] - HTTP Request: GET https://huggingface.co/api/models/microsoft/deberta-v3-base "HTTP/1.1 200 OK"
+[2026-10-19 18:53:53,947][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-10-19 18:53:53,982][httpx][INFO] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/deberta-v3-base/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/config.json?%2Fmicrosoft%2Fdeberta-v3-base%2Fresolve%2Fmain%2Fconfig.json=&etag=%22904b7ba900060d5ff61289fb29bee393189716c7%22 "HTTP/1.1 200 OK"
+[2026-10-19 18:53:59,636][src.models.gliner_encoder][WARNING] - [GLiNEREncoder] Internal encode API unavailable; falling back to predict-based extraction.
+[2026-10-19 18:53:59,666][src.models.gliner_encoder][INFO] - [GLiNEREncoder] Embedding dim=768, max_span_len=12, frozen=True
+[2026-10-19 18:53:59,666][__main__][INFO] - Encoder ready: GLiNEREncoder(dim=768, device=mps, frozen=True)
+[2026-10-19 18:53:59,667][__main__][INFO] - 
+──────────────────────────────────────────────────
+[2026-10-19 18:53:59,667][__main__][INFO] - Running 5-shot evaluation (100 episodes)
+[2026-10-19 18:53:59,667][__main__][INFO] - ──────────────────────────────────────────────────
+[2026-10-19 18:54:00,068][src.models.gliner_encoder][WARNING] - [GLiNEREncoder] Internal encode API unavailable; falling back to predict-based extraction.
