@@ -3,6 +3,8 @@
 A few-shot clinical entity-type classification study using a frozen GLiNER Medium v2.1 span encoder and two prototype heads: a point prototype and a covariance-aware prototype.
 
 > **Evaluation scope:** The reported results are **gold-span entity classification**. Gold annotation start/end offsets supply entity boundaries; GLiNER embeds those spans and the prototype heads predict their entity types. These are **not end-to-end NER span-detection F1** results. The separate native GLiNER extraction code is included but was not run for the reported experiment (`RUN_EXTRACTION=False`).
+## Demo
+https://ml-project-clinical-ner.vercel.app/
 
 ## Results at a glance
 
